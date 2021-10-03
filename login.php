@@ -41,22 +41,27 @@
             <section>
                 <h2>Inicio</h2>
                 <article>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Correo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td scope="row">Lorem.</td>
-                                <td>Lorem.</td>
-                                <td>Lorem.</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="container">
+                      <form>
+                        <div class="mb-3 row">
+                          <label for="email" class="col-sm-12 col-form-label">Correo</label>
+                          <div class="col-sm-12">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Ingrese el correo">
+                          </div>
+                        </div>
+                        <div class="mb-3 row">
+                          <label for="pass" class="col-sm-12 col-form-label">Contraseña</label>
+                          <div class="col-sm-12">
+                            <input type="password" class="form-control" name="pass" id="pass" placeholder="Ingrese el contraseña">
+                          </div>
+                        </div>
+                        <div class="mb-3 row">
+                          <div class="offset-sm-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">Iniciar</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
                 </article>
             </section>
         </main>

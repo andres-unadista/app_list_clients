@@ -25,4 +25,14 @@ class ClientController
     $callView = "views/pages/not_found.php";
     require_once 'views/layout.php';
   }
+
+  public function registerUser()
+  {
+    var_dump($_POST);
+  }
+
+  public function loginUser()
+  {
+    var_dump($_POST);
+  }
 }

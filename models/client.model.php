@@ -13,14 +13,15 @@ class ClientModel
   public function getUsers(): array
   {
     try {
-      $sql = "SELECT * FROM users ORDER BY id DESC";
+      $sql = "SELECT *, DATE_FORMAT(created_at, '%d/%m/%Y') as date_created FROM users ORDER BY id DESC";
       $query = $this->conn->prepare($sql);
       $query->execute();
       $users = $query->fetchAll();
       return $users;
     } catch (PDOException $e) {
       echo $e->getMessage();
-      die();
+      Connection::close();
+      return [];
     }
   }
 
@@ -33,7 +34,7 @@ class ClientModel
       return $isRegister;
     } catch (PDOException $e) {
       echo $e->getMessage();
-      die();
+      Connection::close();
     }
   }
 
@@ -46,22 +47,37 @@ class ClientModel
       return $isUpdated;
     } catch (PDOException $e) {
       echo $e->getMessage();
-      die();
+      Connection::close();
     }
   }
 
-  public function getUser(int $id): array
+  public function getUserLogin(array $user)
   {
     try {
-      $sql = "SELECT * FROM `users` WHERE id=:id ORDER BY id DESC";
+      $sql = "SELECT * FROM `users` WHERE email=:email";
       $query = $this->conn->prepare($sql);
-      $query->bindParam('id', $id);
+      $query->bindParam('email', $user['email']);
       $query->execute();
       $user = $query->fetch();
       return $user;
     } catch (PDOException $e) {
       echo $e->getMessage();
-      die();
+      Connection::close();
+    }
+  }
+
+  public function getUser(int $user)
+  {
+    try {
+      $sql = "SELECT * FROM `users` WHERE id=:id";
+      $query = $this->conn->prepare($sql);
+      $query->bindParam('id', $user);
+      $query->execute();
+      $user = $query->fetch();
+      return $user;
+    } catch (PDOException $e) {
+      echo $e->getMessage();
+      Connection::close();
     }
   }
 
@@ -71,11 +87,11 @@ class ClientModel
       $sql = "DELETE FROM `users` WHERE id=:id";
       $query = $this->conn->prepare($sql);
       $query->bindParam('id', $id);
-      $isUpdated = $query->execute();
-      return $isUpdated;
+      $isDeleted = $query->execute();
+      return $isDeleted;
     } catch (PDOException $e) {
       echo $e->getMessage();
-      die();
+      Connection::close();
     }
   }
 }

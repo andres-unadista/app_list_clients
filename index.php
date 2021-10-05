@@ -1,7 +1,7 @@
 <?php
+session_start();
 require_once 'controllers/client.controller.php';
-require_once 'models/db.php';
+require_once 'models/client.model.php';
 
-print_r(Connection::connect());
 $client = new ClientController();
 $client->viewCall();

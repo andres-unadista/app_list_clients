@@ -1,3 +1,13 @@
+<?php
+$stateLogin = null;
+if (!empty($_POST)) {
+  $clientObj = new ClientController();
+  $stateLogin = $clientObj->loginUser();
+  if ($stateLogin) {
+    header('Location: index.php?page=home');
+  }
+}
+?>
 <main>
   <section class="px-5">
     <h2 class="text-center">Iniciar sesión</h2>
@@ -5,6 +15,12 @@
       <div class="container">
         <form class="row" method="POST">
           <div class="col-md-8 mx-auto shadow">
+            <?php if ($stateLogin === false) : ?>
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong>¡Credenciales incorrectas!</strong>
+              </div>
+            <?php endif ?>
             <div class="mb-3 row">
               <label for="email" class="col-sm-12 col-form-label">Correo</label>
               <div class="col-sm-12">
@@ -36,10 +52,3 @@
     </article>
   </section>
 </main>
-
-<?php
-  if (!empty($_POST)) {
-    $clientObj = new ClientController();
-    $clientObj->loginUser();
-  }
-?>

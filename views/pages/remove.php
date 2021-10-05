@@ -1,0 +1,3 @@
+<?php 
+ ClientController::deleteUser(); 
+?>

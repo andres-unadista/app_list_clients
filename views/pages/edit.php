@@ -1,28 +1,32 @@
 <?php
-$statusCreated = null;
-
+$statusUpdated = null;
+$user = ClientController::getUser();
 if (!empty($_POST)) {
   $clientObj = new ClientController();
-  $statusCreated = $clientObj->registerUser();
+  $statusUpdated = $clientObj->updateUser();
+  if ($statusUpdated) {
+    $user = ClientController::getUser();
+  }
+  
 }
 ?>
 <main>
   <section class="px-5">
-    <h2 class="text-center">Registrarse</h2>
+    <h2 class="text-center">Actualizar</h2>
     <article>
       <div class="container">
         <form class="row" method="POST">
           <div class="col-md-8 mx-auto shadow">
-            <?php if ($statusCreated) : ?>
+            <?php if ($statusUpdated) : ?>
               <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                <strong>¡Usuario creado!</strong>
+                <strong>¡Usuario actualizado!</strong>
               </div>
-              <?php elseif($statusCreated === false): ?>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                  <strong>¡El usuario no ha sido creado!</strong>
-                </div>
+            <?php elseif ($statusUpdated === false) : ?>
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong>¡El usuario no ha sido actualizado!</strong>
+              </div>
             <?php endif ?>
 
             <div class="mb-3 row">
@@ -30,7 +34,7 @@ if (!empty($_POST)) {
               <div class="col-sm-12">
                 <div class="input-group mb-3">
                   <span class="input-group-text"><i class="fas fa-envelope    "></i></span>
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Ingrese el correo">
+                  <input type="email" value="<?=$user['email']?>" class="form-control" name="email" id="email" placeholder="Ingrese el correo">
                 </div>
               </div>
             </div>
@@ -39,7 +43,7 @@ if (!empty($_POST)) {
               <div class="col-sm-12">
                 <div class="input-group mb-3">
                   <span class="input-group-text"><i class="fas fa-user    "></i></span>
-                  <input type="text" class="form-control" name="name" id="name" placeholder="Ingrese el nombre">
+                  <input type="text" value="<?=$user['name']?>" class="form-control" name="name" id="name" placeholder="Ingrese el nombre">
                 </div>
               </div>
             </div>
@@ -64,7 +68,7 @@ if (!empty($_POST)) {
             <div class="mb-3 row">
               <div class="col-md-12">
                 <div class="d-grid gap-2">
-                  <button type="submit" name="" id="" class="btn btn-primary">Registrarse</button>
+                  <button type="submit" name="" id="" class="btn btn-primary">Actualizar</button>
                 </div>
               </div>
             </div>
